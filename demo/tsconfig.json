@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "outDir": "./",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "target": "es5",
+    "allowJs": true,
+    "lib": [
+      "es2016",
+      "dom",
+      "es5"
+    ]
+  },
+  "include": [
+    "*.ts"
+  ],
+  "exclude": [
+    "node_modules", "dist"
+  ],
+  "types": [
+    "babylonjs"
+  ]
+}

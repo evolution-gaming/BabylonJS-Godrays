@@ -1,0 +1,36 @@
+{
+  "name": "BabylonJS-godrays",
+  "version": "1.0.0",
+  "description": "Performant and lightweight god rays effect for BabylonJS based on geometry",
+  "main": "dist/index.js",
+  "types": "dist/index.d.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PixelsCommander/BabylonJSGeometryGodrays.git"
+  },
+  "keywords": [
+    "god rays",
+    "babylon",
+    "babylonjs",
+    "god",
+    "rays"
+  ],
+  "author": "Denis Radin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PixelsCommander/BabylonJSGeometryGodrays/issues"
+  },
+  "homepage": "https://github.com/PixelsCommander/BabylonJSGeometryGodrays#readme",
+  "devDependencies": {
+    "ts-loader": "^5.3.0",
+    "typescript": "^3.1.6",
+    "webpack-cli": "^3.1.2"
+  },
+  "dependencies": {
+    "babylonjs": "^3.3.0",
+    "webpack": "^4.25.1"
+  }
+}
