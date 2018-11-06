@@ -73,6 +73,7 @@ export class Godrays extends Mesh {
 
         this.initRender();
         this.rotateLayersAndInterpolateScale();
+        this.billboardMode = 7;
     }
 
     initRender() {

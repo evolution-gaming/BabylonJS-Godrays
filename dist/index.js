@@ -69,6 +69,7 @@ var Godrays = /** @class */ (function (_super) {
         _this.setRaysScale = _this.setRaysScale.bind(_this);
         _this.initRender();
         _this.rotateLayersAndInterpolateScale();
+        _this.billboardMode = 7;
         return _this;
     }
     Godrays.prototype.initRender = function () {

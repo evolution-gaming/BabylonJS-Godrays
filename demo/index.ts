@@ -23,7 +23,9 @@ var createScene = function () {
     scene.clearColor = Color4.FromColor3(Color3.FromHexString("#22538e"));
 
     // Add a camera to the scene and attach it to the canvas
-    var camera = new ArcRotateCamera("Camera", Math.PI / 2, Math.PI / 2, 2, new Vector3(0,0,5), scene);
+    var camera = new ArcRotateCamera("Camera", Math.PI / 2, Math.PI / 2, 2,
+        new Vector3(0,0,10), scene);
+
     camera.attachControl(canvas, true);
 
     // Add lights to the scene
