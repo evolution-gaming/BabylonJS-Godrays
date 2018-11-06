@@ -16,6 +16,33 @@ godrays.position = new Vector3(x, y, z);
 
 Look for a demo source code for more insights.
 
+## API
+
+* `godrays.start(multConfig)` Starts rays smoothly applying config passed as an argument.
+
+Config interface:
+
+```
+interface GodraysConfig {
+    colors: Array<Color3>; // Colors of rays
+    scale: number; // Default is 1
+    minSpeed: number; // Minimal rotation speed
+    maxSpeed: number; // Maximum rotation speed
+    density: number; // From 0 to 1 defines density of the rays
+}
+```
+
+* `godrays.stop()` Stops rays smoothly.
+
+* `godrays.setColors(Array<Color3>)` Sets colors of rays.
+
+* `godrays.setRaysScale(number)` Sets scale of rays.
+
+* `godrays.setRotataionSpeed(minSpeed: number, maxSpeed: number)` Sets min, max rotation speed applied to rays.
+
+* `godrays.setDensity(number)` Sets a density of rays. 
+
+
 ## License
 
 MIT: http://mit-license.org/
