@@ -2,7 +2,7 @@
 
 Geometry based godrays for BabylonJS. Few times faster comparing to a built-in post-effect based ones.
 
-![God rays](http://www.giphy.com/gifs/WvFg8dVAPLciI691yZ)
+![God rays](http://www.giphy.com/gifs/WvFg8dVAPLciI691yZ/giphy.gif)
 
 ## How to use
 
