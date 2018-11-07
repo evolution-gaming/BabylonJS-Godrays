@@ -82,8 +82,8 @@ var Godrays = /** @class */ (function (_super) {
         if (config) {
             this.setConfig(config);
         }
+        this.aimScale = config && config.scale || 1;
         this.scaling = new babylonjs_1.Vector3(minimizedScale, minimizedScale, minimizedScale);
-        this.aimScale = config.scale;
     };
     Godrays.prototype.stop = function () {
         this.aimScale = minimizedScale;

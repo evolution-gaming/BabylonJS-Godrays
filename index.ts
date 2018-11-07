@@ -89,8 +89,8 @@ export class Godrays extends Mesh {
             this.setConfig(config);
         }
 
+        this.aimScale = config && config.scale || 1;
         this.scaling = new Vector3(minimizedScale, minimizedScale, minimizedScale);
-        this.aimScale = config.scale;
     }
 
     stop() {

@@ -48,7 +48,7 @@ var createScene = function () {
     var stopButton = document.getElementById("stop");
 
     startButton.addEventListener('mousedown', (e) => {
-        godrays.start(multConfig);
+        godrays.start();
     });
 
     stopButton.addEventListener('mousedown', (e) => {
