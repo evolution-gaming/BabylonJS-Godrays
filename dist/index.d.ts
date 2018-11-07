@@ -41,7 +41,7 @@ export declare class Godrays extends Mesh {
     private rotating;
     constructor(scene: Scene);
     initRender(): void;
-    start(config: GodraysConfig): void;
+    start(config?: GodraysConfig): void;
     stop(): void;
     setConfig(config: GodraysConfig): void;
     setDensity(density: number): void;

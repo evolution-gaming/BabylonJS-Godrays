@@ -79,7 +79,9 @@ var Godrays = /** @class */ (function (_super) {
     };
     Godrays.prototype.start = function (config) {
         this.rotating = true;
-        this.setConfig(config);
+        if (config) {
+            this.setConfig(config);
+        }
         this.scaling = new babylonjs_1.Vector3(minimizedScale, minimizedScale, minimizedScale);
         this.aimScale = config.scale;
     };

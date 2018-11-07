@@ -82,9 +82,13 @@ export class Godrays extends Mesh {
         this.createLayers();
     }
 
-    start(config: GodraysConfig) {
+    start(config?: GodraysConfig) {
         this.rotating = true;
-        this.setConfig(config);
+
+        if (config) {
+            this.setConfig(config);
+        }
+
         this.scaling = new Vector3(minimizedScale, minimizedScale, minimizedScale);
         this.aimScale = config.scale;
     }
