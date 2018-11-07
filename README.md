@@ -1,6 +1,6 @@
 # God rays for BabylonJS
 
-Geometry based godrays for BabylonJS. Few times faster comparing to a built-in post-effect based ones.
+Geometry based godrays for BabylonJS. Few times faster comparing to a built-in post-effect based ones. Configurable rotation speed, colors, size, density.
 
 ![God rays](https://media.giphy.com/media/d7na8bnglKVf54foMw/giphy.gif)
 
@@ -47,9 +47,4 @@ interface GodraysConfig {
 
 MIT: http://mit-license.org/
 
-Copyright 2018 Denis Radin aka [PixelsCommander](http://pixelscommander.com)
-
-
-## Credits
-
-Inspired by my work at [Evolution Gaming](https://www.evolutiongamingcareers.com/search-jobs/?department=Engineering&country=)
+Authored 2018 Denis Radin aka [PixelsCommander](http://pixelscommander.com)
