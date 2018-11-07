@@ -41,13 +41,14 @@ exports.multConfig = {
     maxSpeed: 0.03,
     density: 0.8,
 };
+var minimizedScale = 0.01;
 var Godrays = /** @class */ (function (_super) {
     __extends(Godrays, _super);
     function Godrays(scene) {
         var _this = _super.call(this, "godrays" + (godraysNo++), scene) || this;
         _this.layers = [];
         _this.rays = [];
-        _this.aimScale = 1;
+        _this.aimScale = minimizedScale;
         _this.layersNumber = 5;
         _this.raysNumber = 3;
         _this.raysLength = 15;
@@ -62,8 +63,9 @@ var Godrays = /** @class */ (function (_super) {
         _this.maxRotationSpeed = 0.04;
         _this.colors = defaultColors;
         _this.layersRotationSpeeds = [];
+        _this.rotating = false;
         _this.initRender();
-        _this.scaling = new babylonjs_1.Vector3(0.01, 0.01, 0.01);
+        _this.scaling = new babylonjs_1.Vector3(minimizedScale, minimizedScale, minimizedScale);
         _this.colors = defaultColors;
         _this.rotateLayersAndInterpolateScale = _this.rotateLayersAndInterpolateScale.bind(_this);
         _this.setRaysScale = _this.setRaysScale.bind(_this);
@@ -76,12 +78,14 @@ var Godrays = /** @class */ (function (_super) {
         this.createLayers();
     };
     Godrays.prototype.start = function (config) {
+        this.rotating = true;
         this.setConfig(config);
-        this.scaling = new babylonjs_1.Vector3(0.01, 0.01, 0.01);
+        this.scaling = new babylonjs_1.Vector3(minimizedScale, minimizedScale, minimizedScale);
         this.aimScale = config.scale;
     };
     Godrays.prototype.stop = function () {
-        this.aimScale = 0.01;
+        this.aimScale = minimizedScale;
+        this.rotating = false;
     };
     Godrays.prototype.setConfig = function (config) {
         this.setColors(config.colors);
@@ -148,7 +152,9 @@ var Godrays = /** @class */ (function (_super) {
             currentScaling += (this.aimScale - currentScaling) * 0.2;
             this.scaling = new babylonjs_1.Vector3(currentScaling, currentScaling, currentScaling);
         }
-        this.layers.forEach(function (layer, idx) { return layer.rotation.z += _this.layersRotationSpeeds[idx]; });
+        if (this.rotating) {
+            this.layers.forEach(function (layer, idx) { return layer.rotation.z += _this.layersRotationSpeeds[idx]; });
+        }
         requestAnimationFrame(this.rotateLayersAndInterpolateScale);
     };
     Godrays.prototype.createRay = function (centerWidth, edgeWidth, length) {

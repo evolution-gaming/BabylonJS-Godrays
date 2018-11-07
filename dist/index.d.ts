@@ -38,6 +38,7 @@ export declare class Godrays extends Mesh {
     private maxRotationSpeed;
     private colors;
     private layersRotationSpeeds;
+    private rotating;
     constructor(scene: Scene);
     initRender(): void;
     start(config: GodraysConfig): void;

@@ -40,11 +40,12 @@ export interface GodraysConfig {
     density: number;
 }
 
-export class Godrays extends Mesh {
+const minimizedScale = 0.01;
 
+export class Godrays extends Mesh {
     private layers: Array<Mesh> = [];
     private rays: Array<Mesh> = [];
-    private aimScale = 1;
+    private aimScale = minimizedScale;
     private layersNumber = 5;
     private raysNumber = 3;
     private raysLength = 15;
@@ -60,12 +61,13 @@ export class Godrays extends Mesh {
     private maxRotationSpeed = 0.04;
     private colors = defaultColors;
     private layersRotationSpeeds: Array<number> = [];
+    private rotating: boolean = false;
 
     constructor(scene: Scene) {
         super("godrays" + (godraysNo++), scene);
         this.initRender();
 
-        this.scaling = new Vector3(0.01, 0.01, 0.01);
+        this.scaling = new Vector3(minimizedScale, minimizedScale, minimizedScale);
         this.colors = defaultColors;
 
         this.rotateLayersAndInterpolateScale = this.rotateLayersAndInterpolateScale.bind(this);
@@ -81,13 +83,15 @@ export class Godrays extends Mesh {
     }
 
     start(config: GodraysConfig) {
+        this.rotating = true;
         this.setConfig(config);
-        this.scaling = new Vector3(0.01, 0.01, 0.01);
+        this.scaling = new Vector3(minimizedScale, minimizedScale, minimizedScale);
         this.aimScale = config.scale;
     }
 
     stop() {
-        this.aimScale = 0.01;
+        this.aimScale = minimizedScale;
+        this.rotating = false;
     }
 
     setConfig(config: GodraysConfig) {
@@ -166,7 +170,10 @@ export class Godrays extends Mesh {
             this.scaling = new Vector3(currentScaling, currentScaling, currentScaling);
         }
 
-        this.layers.forEach((layer, idx) => layer.rotation.z += this.layersRotationSpeeds[idx]);
+        if (this.rotating) {
+            this.layers.forEach((layer, idx) => layer.rotation.z += this.layersRotationSpeeds[idx]);
+        }
+
         requestAnimationFrame(this.rotateLayersAndInterpolateScale);
     }
 
