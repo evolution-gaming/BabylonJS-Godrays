@@ -48,8 +48,3 @@ interface GodraysConfig {
 MIT: http://mit-license.org/
 
 Authored 2018 Denis Radin aka [PixelsCommander](http://pixelscommander.com)
-
-
-## Credits
-
-Inspired by my work at [Evolution Gaming](https://www.evolutiongamingcareers.com/search-jobs/?department=Engineering&country=)
