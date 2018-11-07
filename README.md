@@ -47,7 +47,7 @@ interface GodraysConfig {
 
 MIT: http://mit-license.org/
 
-Copyright 2018 Denis Radin aka [PixelsCommander](http://pixelscommander.com)
+Authored 2018 Denis Radin aka [PixelsCommander](http://pixelscommander.com)
 
 
 ## Credits
