@@ -64,19 +64,15 @@ var Godrays = /** @class */ (function (_super) {
         _this.colors = defaultColors;
         _this.layersRotationSpeeds = [];
         _this.rotating = false;
-        _this.initRender();
         _this.scaling = new babylonjs_1.Vector3(minimizedScale, minimizedScale, minimizedScale);
         _this.colors = defaultColors;
         _this.rotateLayersAndInterpolateScale = _this.rotateLayersAndInterpolateScale.bind(_this);
         _this.setRaysScale = _this.setRaysScale.bind(_this);
-        _this.initRender();
+        _this.createLayers();
         _this.rotateLayersAndInterpolateScale();
         _this.billboardMode = 7;
         return _this;
     }
-    Godrays.prototype.initRender = function () {
-        this.createLayers();
-    };
     Godrays.prototype.start = function (config) {
         this.rotating = true;
         if (config) {

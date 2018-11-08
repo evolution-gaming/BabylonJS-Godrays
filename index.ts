@@ -65,7 +65,6 @@ export class Godrays extends Mesh {
 
     constructor(scene: Scene) {
         super("godrays" + (godraysNo++), scene);
-        this.initRender();
 
         this.scaling = new Vector3(minimizedScale, minimizedScale, minimizedScale);
         this.colors = defaultColors;
@@ -73,13 +72,9 @@ export class Godrays extends Mesh {
         this.rotateLayersAndInterpolateScale = this.rotateLayersAndInterpolateScale.bind(this);
         this.setRaysScale = this.setRaysScale.bind(this);
 
-        this.initRender();
+        this.createLayers();
         this.rotateLayersAndInterpolateScale();
         this.billboardMode = 7;
-    }
-
-    initRender() {
-        this.createLayers();
     }
 
     start(config?: GodraysConfig) {
