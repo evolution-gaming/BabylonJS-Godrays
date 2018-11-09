@@ -1,6 +1,6 @@
 {
   "name": "babylonjs-godrays",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Performant and lightweight god rays effect for BabylonJS based on geometry",
   "main": "dist/index.js",
   "types": "dist/index.d.js",

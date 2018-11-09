@@ -50,8 +50,7 @@ var Godrays = /** @class */ (function (_super) {
         _this.rays = [];
         _this.aimScale = minimizedScale;
         _this.layersNumber = 5;
-        _this.raysNumber = 3;
-        _this.raysLength = 15;
+        _this.raysNumber = 6;
         _this.raysMinWidth = 0.01;
         _this.raysMaxWidth = 0.6;
         _this.raysMinLength = 5;
@@ -70,7 +69,6 @@ var Godrays = /** @class */ (function (_super) {
         _this.setRaysScale = _this.setRaysScale.bind(_this);
         _this.createLayers();
         _this.rotateLayersAndInterpolateScale();
-        _this.billboardMode = 7;
         return _this;
     }
     Godrays.prototype.start = function (config) {
@@ -90,6 +88,17 @@ var Godrays = /** @class */ (function (_super) {
         this.setRaysScale(config.scale);
         this.setSpeed(config.minSpeed, config.maxSpeed);
         this.setDensity(config.density);
+        if (config.minAlpha && config.maxAlpha) {
+            this.setAlpha(config.minAlpha, config.maxAlpha);
+        }
+    };
+    Godrays.prototype.setAlpha = function (minAlpha, maxAlpha) {
+        var _this = this;
+        this.raysMinAlpha = minAlpha;
+        this.raysMaxAlpha = maxAlpha;
+        this.rays.forEach(function (ray) {
+            ray.visibility = getRandomFloat(_this.raysMinAlpha, _this.raysMaxAlpha);
+        });
     };
     Godrays.prototype.setDensity = function (density) {
         this.density = density;
@@ -105,9 +114,11 @@ var Godrays = /** @class */ (function (_super) {
         this.layers.forEach(function (layer, idx) { return _this.layersRotationSpeeds[idx] = getRandomFloat(_this.minRotationSpeed, _this.maxRotationSpeed); });
     };
     Godrays.prototype.setRaysScale = function (scale) {
+        this.aimScale = scale;
         this.scaling = new babylonjs_1.Vector3(scale, scale, scale);
     };
     Godrays.prototype.setColors = function (colors) {
+        var _this = this;
         this.colors = colors;
         var self = this;
         this.rays.forEach(function (ray) {
@@ -116,7 +127,8 @@ var Godrays = /** @class */ (function (_super) {
             var vertexData = new babylonjs_1.VertexData();
             vertexData.positions = positions;
             vertexData.indices = indices;
-            vertexData.colors = self.getRandomColorsData();
+            var randomColor = _this.getRandomColor();
+            vertexData.colors = self.getColorData(randomColor);
             vertexData.applyToMesh(ray);
         });
     };
@@ -135,7 +147,7 @@ var Godrays = /** @class */ (function (_super) {
             var centerWidth = getRandomFloat(this.raysMinWidth, this.raysMaxWidth);
             var edgesWidth = getRandomFloat(this.raysMinWidth, this.raysMaxWidth);
             var length = getRandomFloat(this.raysMinLength, this.raysMaxLength);
-            var ray = this.createRay(centerWidth, edgesWidth, 10);
+            var ray = this.createRay(centerWidth, edgesWidth, length);
             ray.rotation.z = getRandomFloat(0, Math.PI * 2);
             ray.position.z = raysNo * 0.001;
             ray.visibility = getRandomFloat(this.raysMinAlpha, this.raysMaxAlpha);
@@ -175,23 +187,30 @@ var Godrays = /** @class */ (function (_super) {
             edgeRBPoint,
         ]);
         var indices = [2, 3, 1, 0, 2, 1, 5, 4, 0, 1, 5, 0];
-        var colors = this.getRandomColorsData();
+        var randomColor = this.getRandomColor();
+        var colors = this.getColorData(randomColor);
         var vertexData = new babylonjs_1.VertexData();
         vertexData.positions = positions;
         vertexData.indices = indices;
         vertexData.colors = colors;
         vertexData.applyToMesh(ray);
         var mat = new babylonjs_1.StandardMaterial("mat", this.getScene());
-        mat.alphaMode = babylonjs_1.Engine.ALPHA_ADD;
+        // mat.alphaMode = Engine.ALPHA_ADD;
+        mat.specularColor = randomColor;
+        mat.ambientColor = randomColor;
+        mat.emissiveColor = randomColor;
+        mat.diffuseColor = randomColor;
         ray.material = mat;
         ray.hasVertexAlpha = true;
         this.rays.push(ray);
         return ray;
     };
-    Godrays.prototype.getRandomColorsData = function () {
+    Godrays.prototype.getRandomColor = function () {
         var randomColorIdx = getRandomInt(0, this.colors.length - 1);
-        var randomColor = this.colors[randomColorIdx];
-        var randomColorRGB = [randomColor.r, randomColor.g, randomColor.b];
+        return this.colors[randomColorIdx];
+    };
+    Godrays.prototype.getColorData = function (color) {
+        var randomColorRGB = [color.r, color.g, color.b];
         var transparentColor = randomColorRGB.concat([0]);
         var colors = [];
         for (var i = 0; i < 6; i++) {

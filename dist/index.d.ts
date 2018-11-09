@@ -18,6 +18,8 @@ export interface GodraysConfig {
     scale: number;
     minSpeed: number;
     maxSpeed: number;
+    minAlpha: number;
+    maxAlpha: number;
     density: number;
 }
 export declare class Godrays extends Mesh {
@@ -26,7 +28,6 @@ export declare class Godrays extends Mesh {
     private aimScale;
     private layersNumber;
     private raysNumber;
-    private raysLength;
     private raysMinWidth;
     private raysMaxWidth;
     private raysMinLength;
@@ -43,6 +44,7 @@ export declare class Godrays extends Mesh {
     start(config?: GodraysConfig): void;
     stop(): void;
     setConfig(config: GodraysConfig): void;
+    setAlpha(minAlpha: number, maxAlpha: number): void;
     setDensity(density: number): void;
     setSpeed(minSpeed: number, maxSpeed: number): void;
     setRaysScale(scale: number): void;
@@ -51,6 +53,7 @@ export declare class Godrays extends Mesh {
     createLayer(): Mesh;
     rotateLayersAndInterpolateScale(): void;
     createRay(centerWidth: number, edgeWidth: number, length: number): Mesh;
-    getRandomColorsData(): number[];
+    getRandomColor(): Color3;
+    getColorData(color: Color3): number[];
 }
 export default Godrays;

@@ -37,6 +37,8 @@ export interface GodraysConfig {
     scale: number;
     minSpeed: number;
     maxSpeed: number;
+    minAlpha: number;
+    maxAlpha: number;
     density: number;
 }
 
@@ -45,10 +47,11 @@ const minimizedScale = 0.01;
 export class Godrays extends Mesh {
     private layers: Array<Mesh> = [];
     private rays: Array<Mesh> = [];
+
     private aimScale = minimizedScale;
+
     private layersNumber = 5;
-    private raysNumber = 3;
-    private raysLength = 15;
+    private raysNumber = 6;
     private raysMinWidth = 0.01;
     private raysMaxWidth = 0.6;
     private raysMinLength = 5;
@@ -74,7 +77,6 @@ export class Godrays extends Mesh {
 
         this.createLayers();
         this.rotateLayersAndInterpolateScale();
-        this.billboardMode = 7;
     }
 
     start(config?: GodraysConfig) {
@@ -98,6 +100,19 @@ export class Godrays extends Mesh {
         this.setRaysScale(config.scale);
         this.setSpeed(config.minSpeed, config.maxSpeed);
         this.setDensity(config.density);
+
+        if (config.minAlpha && config.maxAlpha) {
+            this.setAlpha(config.minAlpha, config.maxAlpha);
+        }
+    }
+
+    setAlpha(minAlpha: number, maxAlpha: number) {
+        this.raysMinAlpha = minAlpha;
+        this.raysMaxAlpha = maxAlpha;
+
+        this.rays.forEach(ray => {
+            ray.visibility = getRandomFloat(this.raysMinAlpha, this.raysMaxAlpha);
+        });
     }
 
     setDensity(density: number) {
@@ -116,6 +131,7 @@ export class Godrays extends Mesh {
     }
 
     setRaysScale(scale: number) {
+        this.aimScale = scale;
         this.scaling = new Vector3(scale, scale, scale);
     }
 
@@ -129,7 +145,8 @@ export class Godrays extends Mesh {
 
             vertexData.positions = positions;
             vertexData.indices = indices;
-            vertexData.colors = self.getRandomColorsData();
+            var randomColor = this.getRandomColor();
+            vertexData.colors = self.getColorData(randomColor);
 
             vertexData.applyToMesh(ray);
         })
@@ -153,7 +170,7 @@ export class Godrays extends Mesh {
             var edgesWidth = getRandomFloat(this.raysMinWidth, this.raysMaxWidth);
             var length = getRandomFloat(this.raysMinLength, this.raysMaxLength);
 
-            var ray = this.createRay(centerWidth, edgesWidth, 10);
+            var ray = this.createRay(centerWidth, edgesWidth, length);
             ray.rotation.z = getRandomFloat(0, Math.PI * 2);
             ray.position.z = raysNo * 0.001;
             ray.visibility = getRandomFloat(this.raysMinAlpha, this.raysMaxAlpha);
@@ -201,7 +218,8 @@ export class Godrays extends Mesh {
 
         var indices = [2, 3, 1, 0, 2, 1, 5, 4, 0, 1, 5, 0];
 
-        var colors = this.getRandomColorsData();
+        var randomColor = this.getRandomColor();
+        var colors = this.getColorData(randomColor);
 
         var vertexData = new VertexData();
 
@@ -211,7 +229,13 @@ export class Godrays extends Mesh {
         vertexData.applyToMesh(ray);
 
         var mat = new StandardMaterial("mat", this.getScene());
-        mat.alphaMode = Engine.ALPHA_ADD;
+        // mat.alphaMode = Engine.ALPHA_ADD;
+
+        mat.specularColor = randomColor;
+        mat.ambientColor = randomColor;
+        mat.emissiveColor = randomColor;
+        mat.diffuseColor = randomColor;
+
         ray.material = mat;
         ray.hasVertexAlpha = true
 
@@ -220,11 +244,13 @@ export class Godrays extends Mesh {
         return ray;
     }
 
-    getRandomColorsData() {
+    getRandomColor() {
         const randomColorIdx = getRandomInt(0, this.colors.length - 1);
-        const randomColor = this.colors[randomColorIdx];
+        return this.colors[randomColorIdx];
+    }
 
-        var randomColorRGB = [randomColor.r, randomColor.g, randomColor.b];
+    getColorData(color: Color3) {
+        var randomColorRGB = [color.r, color.g, color.b];
         var transparentColor = [...randomColorRGB, 0];
 
         var colors: Array<number> = [];
