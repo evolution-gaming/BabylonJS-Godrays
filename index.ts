@@ -9,27 +9,14 @@ const defaultColors = [
     Color3.FromHexString("#FF9649"),
 ]
 
-const multiplyerColors = [
-    Color3.FromHexString("#FFE061"),
-    Color3.FromHexString("#FF9649"),
-    Color3.FromHexString("#FF5334"),
-    Color3.FromHexString("#496BFF"),
-]
-
-export const winConfig = {
+export const defaultConfig = {
     scale: 1.3,
     colors: defaultColors,
     minSpeed: 0.002,
     maxSpeed: 0.04,
+    minAlpha: 0.1,
+    maxAlpha: 0.4,
     density: 1,
-}
-
-export const multConfig = {
-    scale: 1,
-    colors: multiplyerColors,
-    minSpeed: 0.001,
-    maxSpeed: 0.03,
-    density: 0.8,
 }
 
 export interface GodraysConfig {
@@ -79,7 +66,7 @@ export class Godrays extends Mesh {
         this.rotateLayersAndInterpolateScale();
     }
 
-    start(config?: GodraysConfig) {
+    public start(config?: GodraysConfig) {
         this.rotating = true;
 
         if (config) {
@@ -90,12 +77,12 @@ export class Godrays extends Mesh {
         this.scaling = new Vector3(minimizedScale, minimizedScale, minimizedScale);
     }
 
-    stop() {
+    public stop() {
         this.aimScale = minimizedScale;
         this.rotating = false;
     }
 
-    setConfig(config: GodraysConfig) {
+    public setConfig(config: GodraysConfig) {
         this.setColors(config.colors);
         this.setRaysScale(config.scale);
         this.setSpeed(config.minSpeed, config.maxSpeed);
@@ -106,7 +93,7 @@ export class Godrays extends Mesh {
         }
     }
 
-    setAlpha(minAlpha: number, maxAlpha: number) {
+    public setAlpha(minAlpha: number, maxAlpha: number) {
         this.raysMinAlpha = minAlpha;
         this.raysMaxAlpha = maxAlpha;
 
@@ -115,7 +102,7 @@ export class Godrays extends Mesh {
         });
     }
 
-    setDensity(density: number) {
+    public setDensity(density: number) {
         this.density = density;
         this.rays.forEach(ray => {
             const shouldEnable = Math.random() < density;
@@ -123,54 +110,54 @@ export class Godrays extends Mesh {
         });
     }
 
-    setSpeed(minSpeed: number, maxSpeed: number) {
+    public setSpeed(minSpeed: number, maxSpeed: number) {
         this.minRotationSpeed = minSpeed;
         this.maxRotationSpeed = maxSpeed;
 
         this.layers.forEach((layer, idx) => this.layersRotationSpeeds[idx] = getRandomFloat(this.minRotationSpeed, this.maxRotationSpeed));
     }
 
-    setRaysScale(scale: number) {
+    public setRaysScale(scale: number) {
         this.aimScale = scale;
         this.scaling = new Vector3(scale, scale, scale);
     }
 
-    setColors(colors: Array<Color3>) {
+    public setColors(colors: Array<Color3>) {
         this.colors = colors;
-        var self = this;
+
         this.rays.forEach(ray => {
-            var positions = ray.getVerticesData('position');
-            var indices = ray.getIndices();
-            var vertexData = new VertexData();
+            const positions = ray.getVerticesData('position');
+            const indices = ray.getIndices();
+            const vertexData = new VertexData();
 
             vertexData.positions = positions;
             vertexData.indices = indices;
-            var randomColor = this.getRandomColor();
-            vertexData.colors = self.getColorData(randomColor);
+            const randomColor = this.getRandomColor();
+            vertexData.colors = this.getColorData(randomColor);
 
             vertexData.applyToMesh(ray);
         })
     }
 
-    createLayers() {
-        for (var i = 0; i < this.layersNumber; i++) {
+    private createLayers() {
+        for (let i = 0; i < this.layersNumber; i++) {
             const layer = this.createLayer()
             this.layers.push(layer);
-            layer.position.z = i * 0.1;
+            layer.position.z = i * 0.01;
             layer.parent = this;
             this.layersRotationSpeeds[i] = getRandomFloat(-this.maxRotationSpeed, this.maxRotationSpeed);
         }
     }
 
-    createLayer() {
-        var layer = new Mesh("layer"+(layersNo++), this.getScene());
+    private createLayer() {
+        const layer = new Mesh("layer"+(layersNo++), this.getScene());
 
-        for (var i = 0; i < this.raysNumber; i++) {
-            var centerWidth = getRandomFloat(this.raysMinWidth, this.raysMaxWidth);
-            var edgesWidth = getRandomFloat(this.raysMinWidth, this.raysMaxWidth);
-            var length = getRandomFloat(this.raysMinLength, this.raysMaxLength);
+        for (let i = 0; i < this.raysNumber; i++) {
+            const centerWidth = getRandomFloat(this.raysMinWidth, this.raysMaxWidth);
+            const edgesWidth = getRandomFloat(this.raysMinWidth, this.raysMaxWidth);
+            const length = getRandomFloat(this.raysMinLength, this.raysMaxLength);
 
-            var ray = this.createRay(centerWidth, edgesWidth, length);
+            const ray = this.createRay(centerWidth, edgesWidth, length);
             ray.rotation.z = getRandomFloat(0, Math.PI * 2);
             ray.position.z = raysNo * 0.001;
             ray.visibility = getRandomFloat(this.raysMinAlpha, this.raysMaxAlpha);
@@ -179,7 +166,7 @@ export class Godrays extends Mesh {
         return layer;
     }
 
-    rotateLayersAndInterpolateScale() {
+    private rotateLayersAndInterpolateScale() {
         let currentScaling = this.scaling.x;
         if (currentScaling !== this.aimScale) {
             currentScaling += (this.aimScale - currentScaling) * 0.2;
@@ -193,21 +180,21 @@ export class Godrays extends Mesh {
         requestAnimationFrame(this.rotateLayersAndInterpolateScale);
     }
 
-    createRay(centerWidth: number, edgeWidth: number, length: number) {
-        var ray = new Mesh("ray"+(raysNo++), this.getScene());
+    private createRay(centerWidth: number, edgeWidth: number, length: number) {
+        const ray = new Mesh("ray"+(raysNo++), this.getScene());
 
-        var halfCenterWidth = centerWidth / 2;
-        var halfEdgeWidth = edgeWidth / 2;
-        var halfLength = length / 2;
+        const halfCenterWidth = centerWidth / 2;
+        const halfEdgeWidth = edgeWidth / 2;
+        const halfLength = length / 2;
 
-        var centerLPoint = [-halfCenterWidth, 0, 0];
-        var centerRPoint = [halfCenterWidth, 0, 0];
-        var edgeLTPoint = [-halfEdgeWidth, -halfLength, 0];
-        var edgeRTPoint = [halfEdgeWidth, -halfLength, 0];
-        var edgeLBPoint = [-halfEdgeWidth, halfLength, 0];
-        var edgeRBPoint = [halfEdgeWidth, halfLength, 0];
+        const centerLPoint = [-halfCenterWidth, 0, 0];
+        const centerRPoint = [halfCenterWidth, 0, 0];
+        const edgeLTPoint = [-halfEdgeWidth, -halfLength, 0];
+        const edgeRTPoint = [halfEdgeWidth, -halfLength, 0];
+        const edgeLBPoint = [-halfEdgeWidth, halfLength, 0];
+        const edgeRBPoint = [halfEdgeWidth, halfLength, 0];
 
-        var positions = [].concat.apply([], [
+        const positions = [].concat.apply([], [
             centerLPoint,
             centerRPoint,
             edgeLTPoint,
@@ -216,19 +203,19 @@ export class Godrays extends Mesh {
             edgeRBPoint,
         ]);
 
-        var indices = [2, 3, 1, 0, 2, 1, 5, 4, 0, 1, 5, 0];
+        const indices = [2, 3, 1, 0, 2, 1, 5, 4, 0, 1, 5, 0];
 
-        var randomColor = this.getRandomColor();
-        var colors = this.getColorData(randomColor);
+        const randomColor = this.getRandomColor();
+        const colors = this.getColorData(randomColor);
 
-        var vertexData = new VertexData();
+        const vertexData = new VertexData();
 
         vertexData.positions = positions;
         vertexData.indices = indices;
         vertexData.colors = colors;
         vertexData.applyToMesh(ray);
 
-        var mat = new StandardMaterial("mat", this.getScene());
+        const mat = new StandardMaterial("mat", this.getScene());
         // mat.alphaMode = Engine.ALPHA_ADD;
 
         mat.specularColor = randomColor;
@@ -244,18 +231,18 @@ export class Godrays extends Mesh {
         return ray;
     }
 
-    getRandomColor() {
+    private getRandomColor() {
         const randomColorIdx = getRandomInt(0, this.colors.length - 1);
         return this.colors[randomColorIdx];
     }
 
-    getColorData(color: Color3) {
-        var randomColorRGB = [color.r, color.g, color.b];
-        var transparentColor = [...randomColorRGB, 0];
+    private getColorData(color: Color3) {
+        const randomColorRGB = [color.r, color.g, color.b];
+        const transparentColor = [...randomColorRGB, 0];
 
-        var colors: Array<number> = [];
+        let colors: Array<number> = [];
 
-        for (var i = 0; i < 6; i++) {
+        for (let i = 0; i < 6; i++) {
             colors = colors.concat(transparentColor);
         }
 

@@ -1,4 +1,4 @@
-import { Godrays, winConfig, multConfig } from "../dist/";
+import { Godrays, defaultConfig } from "../dist/";
 import {
     Scene,
     Engine,
@@ -48,7 +48,7 @@ var createScene = function () {
     var stopButton = document.getElementById("stop");
 
     startButton.addEventListener('mousedown', (e) => {
-        godrays.start();
+        godrays.start(defaultConfig);
     });
 
     stopButton.addEventListener('mousedown', (e) => {
