@@ -1,16 +1,14 @@
 {
   "compilerOptions": {
-    "outDir": "./dist/",
-    "sourceMap": true,
+    "declaration": true,
+    "declarationDir": "./dist",
+    "module": "es6",
     "noImplicitAny": true,
-    //"module": "es6",
-    //"target": "es5",
-    //"jsx": "react",
-    //"allowJs": true,
-    "declaration": true
+    "outDir": "./dist",
+    "target": "es5"
   },
   "include": [
-    "*.ts"
+    "./index.ts"
   ],
   "exclude": [
     "node_modules"
@@ -19,3 +17,4 @@
     "babylonjs"
   ]
 }
+

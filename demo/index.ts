@@ -1,4 +1,3 @@
-import { Godrays, defaultConfig } from "../dist/";
 import {
     Scene,
     Engine,
@@ -12,13 +11,17 @@ import {
     Color4
 } from "babylonjs";
 
+import { Godrays, defaultConfig } from "../dist/index";
+
+console.log(Godrays);
+
 var canvas = document.getElementById("demo-canvas"); // Get the canvas element
 var engine = new Engine(canvas as HTMLCanvasElement, true); // Generate the BABYLON 3D engine
 
 var createScene = function () {
 
     // Create the scene space
-    var scene = new Scene(engine);
+    const scene = new Scene(engine);
 
     scene.clearColor = Color4.FromColor3(Color3.FromHexString("#22538e"));
 
@@ -28,11 +31,11 @@ var createScene = function () {
     camera.attachControl(canvas, true);
 
     // Add lights to the scene
-    var light1 = new HemisphericLight("light1", new Vector3(1, 1, 0), scene);
-    var light2 = new PointLight("light2", new Vector3(0, 1, -1), scene);
+    const light1 = new HemisphericLight("light1", new Vector3(1, 1, 0), scene);
+    const light2 = new PointLight("light2", new Vector3(0, 1, -1), scene);
 
     // Add and manipulate meshes in the scene
-    var sphere = MeshBuilder.CreateSphere("sphere", {diameter:3}, scene);
+    const sphere = MeshBuilder.CreateSphere("sphere", {diameter:3}, scene);
     const mat = new StandardMaterial("sphereMat", scene);
     mat.diffuseColor = Color3.FromHexString("#FFE061");
     mat.emissiveColor = Color3.FromHexString("#FFE061");
@@ -41,12 +44,12 @@ var createScene = function () {
     console.log(defaultConfig);
 
     // Add godrays
-    var godrays = new Godrays(scene);
+    const godrays = new Godrays(scene);
     godrays.position = sphere.position.clone();
 
 
-    var startButton = document.getElementById("start");
-    var stopButton = document.getElementById("stop");
+    const startButton = document.getElementById("start");
+    const stopButton = document.getElementById("stop");
 
     startButton.addEventListener('mousedown', (e) => {
         godrays.start();
@@ -59,7 +62,7 @@ var createScene = function () {
     return scene;
 };
 
-var scene = createScene(); //Call the createScene function
+const scene = createScene(); //Call the createScene function
 
 // Register a render loop to repeatedly render the scene
 engine.runRenderLoop(function () {

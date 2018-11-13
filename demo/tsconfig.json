@@ -1,22 +1,17 @@
 {
   "compilerOptions": {
-    "outDir": "./",
-    "sourceMap": true,
-    "noImplicitAny": true,
-    "target": "es5",
     "module": "commonjs",
-    "allowJs": true,
-    "lib": [
-      "es2016",
-      "dom",
-      "es5"
-    ]
+    "moduleResolution": "node",
+    //"allowJs": true,
+    "outDir": "./dist/",
+    "target": "es5",
+    "allowSyntheticDefaultImports": true
   },
-  "include": [
-    "*.ts"
+  "files": [
+    "index.ts"
   ],
   "exclude": [
-    "node_modules", "dist"
+    "node_modules"
   ],
   "types": [
     "babylonjs"
