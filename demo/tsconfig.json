@@ -4,6 +4,7 @@
     "sourceMap": true,
     "noImplicitAny": true,
     "target": "es5",
+    "module": "commonjs",
     "allowJs": true,
     "lib": [
       "es2016",

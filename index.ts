@@ -5,8 +5,8 @@ let layersNo = 0;
 let godraysNo = 0;
 
 const defaultColors = [
-    Color3.FromHexString("#FFE061"),
-    Color3.FromHexString("#FF9649"),
+    Color3.FromHexString("#ffec23"),
+    Color3.FromHexString("#ffb71b"),
 ]
 
 export const defaultConfig = {

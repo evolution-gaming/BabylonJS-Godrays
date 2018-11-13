@@ -2,7 +2,7 @@ import { Godrays, defaultConfig } from "../dist/";
 import {
     Scene,
     Engine,
-    ArcRotateCamera,
+    FreeCamera,
     HemisphericLight,
     PointLight,
     MeshBuilder,
@@ -23,9 +23,8 @@ var createScene = function () {
     scene.clearColor = Color4.FromColor3(Color3.FromHexString("#22538e"));
 
     // Add a camera to the scene and attach it to the canvas
-    var camera = new ArcRotateCamera("Camera", Math.PI / 2, Math.PI / 2, 2,
-        new Vector3(0,0,10), scene);
-
+    const camera = new FreeCamera("camera1", new Vector3(0, 5, -10), scene);
+    camera.setTarget(Vector3.Zero());
     camera.attachControl(canvas, true);
 
     // Add lights to the scene
@@ -39,6 +38,8 @@ var createScene = function () {
     mat.emissiveColor = Color3.FromHexString("#FFE061");
     sphere.material = mat;
 
+    console.log(defaultConfig);
+
     // Add godrays
     var godrays = new Godrays(scene);
     godrays.position = sphere.position.clone();
@@ -48,7 +49,7 @@ var createScene = function () {
     var stopButton = document.getElementById("stop");
 
     startButton.addEventListener('mousedown', (e) => {
-        godrays.start(defaultConfig);
+        godrays.start();
     });
 
     stopButton.addEventListener('mousedown', (e) => {
