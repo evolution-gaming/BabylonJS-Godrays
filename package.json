@@ -3,11 +3,12 @@
   "version": "1.0.6",
   "description": "Performant and lightweight god rays effect for BabylonJS based on geometry",
   "main": "dist/index.js",
+  "module": "dist/index.es.js",
   "types": "dist/index.d.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepack": "webpack -p",
-    "watch": "webpack -w"
+    "prepublishOnly": "rollup -c",
+    "watch": "rollup -cw"
   },
   "repository": {
     "type": "git",
@@ -27,10 +28,10 @@
   },
   "homepage": "https://github.com/evolution-gaming/BabylonJSGeometryGodrays#readme",
   "devDependencies": {
+    "rollup": "^0.67.1",
+    "rollup-plugin-typescript2": "^0.18.0",
     "ts-loader": "^5.3.0",
     "typescript": "^3.1.6",
-    "webpack-cli": "^3.1.2",
-    "webpack": "^4.25.1"
   },
   "dependencies": {
     "babylonjs": "^3.3.0"

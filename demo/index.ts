@@ -11,7 +11,9 @@ import {
     Color4
 } from "babylonjs";
 
-import { Godrays, defaultConfig } from "../dist";
+import { Godrays, defaultConfig } from "../dist/index";
+
+console.log(Godrays);
 
 var canvas = document.getElementById("demo-canvas"); // Get the canvas element
 var engine = new Engine(canvas as HTMLCanvasElement, true); // Generate the BABYLON 3D engine
