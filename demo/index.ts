@@ -13,7 +13,26 @@ import {
 
 import { Godrays, defaultConfig } from "../dist/index";
 
-console.log(Godrays);
+var raf = window.requestAnimationFrame;
+var skipProcent = 0.9;
+var rafs = 0;
+
+window.requestAnimationFrame = (callback: FrameRequestCallback): number => {
+    var skip = Math.random() < skipProcent;
+
+    if (skip) {
+        raf(callback);
+    } else {
+        skippingRaf(callback);
+    }
+    return rafs++;
+}
+
+function skippingRaf(func: FrameRequestCallback) {
+    raf(() => {
+        window.requestAnimationFrame(func);
+    })
+}
 
 var canvas = document.getElementById("demo-canvas"); // Get the canvas element
 var engine = new Engine(canvas as HTMLCanvasElement, true); // Generate the BABYLON 3D engine
