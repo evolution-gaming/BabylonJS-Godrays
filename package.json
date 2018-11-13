@@ -1,6 +1,6 @@
 {
   "name": "babylonjs-godrays",
-  "version": "1.0.6",
+  "version": "1.0.8",
   "description": "Performant and lightweight god rays effect for BabylonJS based on geometry",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
@@ -31,7 +31,7 @@
     "rollup": "^0.67.1",
     "rollup-plugin-typescript2": "^0.18.0",
     "ts-loader": "^5.3.0",
-    "typescript": "^3.1.6",
+    "typescript": "^3.1.6"
   },
   "dependencies": {
     "babylonjs": "^3.3.0"

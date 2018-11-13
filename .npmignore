@@ -1,1 +1,3 @@
-index.ts
+*.ts
+node_modules
+demo
