@@ -1,19 +1,14 @@
 {
   "compilerOptions": {
+    "declaration": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
     "outDir": "./dist/",
-    "sourceMap": true,
-    "noImplicitAny": true,
-    //"module": "es6",
-    //"target": "es5",
-    //"jsx": "react",
-    //"allowJs": true,
-    "declaration": true
+    "strict": true,
+    "target": "es5"
   },
   "include": [
-    "*.ts"
-  ],
-  "exclude": [
-    "node_modules"
+    "index.ts"
   ],
   "types": [
     "babylonjs"
