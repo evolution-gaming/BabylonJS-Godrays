@@ -1,6 +1,6 @@
 {
   "name": "babylonjs-godrays",
-  "version": "1.0.10",
+  "version": "1.0.12",
   "description": "Performant and lightweight god rays effect for BabylonJS based on geometry",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/evolution-gaming/BabylonJSGeometryGodrays.git"
+    "url": "git+https://github.com/evolution-gaming/BabylonJS-Godrays"
   },
   "keywords": [
     "god rays",
@@ -24,9 +24,9 @@
   "author": "Denis Radin",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/evolution-gaming/BabylonJSGeometryGodrays/issues"
+    "url": "https://github.com/evolution-gaming/BabylonJS-Godraysissues"
   },
-  "homepage": "https://github.com/evolution-gaming/BabylonJSGeometryGodrays#readme",
+  "homepage": "https://github.com/evolution-gaming/BabylonJS-Godrays#readme",
   "devDependencies": {
     "rollup": "^0.67.1",
     "rollup-plugin-typescript2": "^0.18.0",
