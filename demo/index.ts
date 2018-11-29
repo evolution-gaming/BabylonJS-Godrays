@@ -13,12 +13,10 @@ import {
 
 import { Godrays, defaultConfig } from "../dist/index";
 
-console.log(Godrays);
+const canvas = document.getElementById("demo-canvas"); // Get the canvas element
+const engine = new Engine(canvas as HTMLCanvasElement, true); // Generate the BABYLON 3D engine
 
-var canvas = document.getElementById("demo-canvas"); // Get the canvas element
-var engine = new Engine(canvas as HTMLCanvasElement, true); // Generate the BABYLON 3D engine
-
-var createScene = function () {
+const createScene = function () {
 
     // Create the scene space
     const scene = new Scene(engine);

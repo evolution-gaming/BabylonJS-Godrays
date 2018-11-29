@@ -30,6 +30,7 @@ export interface GodraysConfig {
 }
 
 const minimizedScale = 0.01;
+const scaleDelta = 0.001;
 
 export class Godrays extends Mesh {
     private layers: Array<Mesh> = [];
@@ -171,6 +172,14 @@ export class Godrays extends Mesh {
         if (currentScaling !== this.aimScale) {
             currentScaling += (this.aimScale - currentScaling) * 0.2;
             this.scaling = new Vector3(currentScaling, currentScaling, currentScaling);
+        }
+
+        const currentDelta = currentScaling - minimizedScale;
+
+        if (currentDelta < scaleDelta && this.isEnabled())  {
+            this.setEnabled(false);
+        } else if (currentDelta > scaleDelta && !this.isEnabled()) {
+            this.setEnabled(true);
         }
 
         if (this.rotating) {
