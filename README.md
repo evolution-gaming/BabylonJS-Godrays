@@ -1,8 +1,7 @@
 # God rays for BabylonJS
 
-⚠️ **babylonjs-godrays** is deprecated.
-
-> This package is deprecated and no longer supported or updated.
+> [!WARNING]
+> **This repository is archived.** `babylonjs-godrays` is deprecated and no longer maintained. The code stays available read-only; issues and pull requests are closed.
 
 Geometry based godrays for BabylonJS. Few times faster comparing to a built-in post-effect based ones. Configurable rotation speed, colors, size, density.
 
